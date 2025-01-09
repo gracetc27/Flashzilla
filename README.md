@@ -12,7 +12,8 @@ The user may also add and delete flashcards on a seperate editing sheet.
 - ScenePhase and apps moving to the background
 - Timers and using Combine
 - Supporting specific accessibility settings
-- Making use of extensions to build more complicated views.
+- Making use of extensions to build more complicated views
+- Saving and loading from documents directory
   
 # Contact me
 - [My LinkedIn Profile](https://www.linkedin.com/in/grace-couch-b67786334/) 
