@@ -13,7 +13,7 @@ The user may also add and delete flashcards on a seperate editing sheet.
 - Timers and using Combine
 - Supporting specific accessibility settings
 - Making use of extensions to build more complicated views.
--  
+  
 # Contact me
 - [My LinkedIn Profile](https://www.linkedin.com/in/grace-couch-b67786334/) 
 # Acknoledgments
