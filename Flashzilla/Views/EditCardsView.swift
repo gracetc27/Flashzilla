@@ -35,17 +35,14 @@ struct EditCardsView: View {
             }
             .navigationTitle("Edit Flashcards")
             .toolbar {
-                Button("Done", action: done)
+                Button("Done", action: dismiss.callAsFunction)
             }
-            .onAppear(perform: viewModel.loadData)
+            .onAppear(perform: viewModel.loadCards)
         }
-    }
-
-    func done() {
-        dismiss()
     }
 }
 
 #Preview {
     EditCardsView()
 }
+

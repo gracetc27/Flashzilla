@@ -14,21 +14,29 @@ class CardStackViewModel {
     var timeRemaining = 100
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
+
+    let savePath = URL.documentsDirectory.appending(path: "SavedCards")
+
+
+
+    func loadCards() {
+        do {
+            let data = try Data(contentsOf: savePath)
+            cards = try JSONDecoder().decode([Card].self, from: data)
+        } catch {
+            print(error.localizedDescription)
+            cards = []
+        }
+    }
+
+
     func getIndex(of card: Card) -> Int {
         return cards.firstIndex { $0.id == card.id }!
     }
 
-    func loadData() {
-        if let data = UserDefaults.standard.data(forKey: "cards") {
-            if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
-                cards = decoded
-            }
-        }
-    }
-
     func resetCards() {
         timeRemaining = 100
-        loadData()
+        loadCards()
         isActive = !cards.isEmpty
     }
 

@@ -12,17 +12,24 @@ class EditCardsViewModel {
     var newPrompt = ""
     var newAnswer = ""
 
-    func saveCard() {
-        if let data = try? JSONEncoder().encode(cards) {
-            UserDefaults.standard.set(data, forKey: "cards")
+    let savePath = URL.documentsDirectory.appending(path: "SavedCards")
+
+    func saveCards() {
+        do {
+            let data = try JSONEncoder().encode(cards)
+            try data.write(to: savePath, options: [.atomic, .completeFileProtection])
+        } catch {
+            print("Unable to save data.")
         }
     }
-    
-    func loadData() {
-        if let data = UserDefaults.standard.data(forKey: "cards") {
-            if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
-                cards = decoded
-            }
+
+    func loadCards() {
+        do {
+            let data = try Data(contentsOf: savePath)
+            cards = try JSONDecoder().decode([Card].self, from: data)
+        } catch {
+            print(error.localizedDescription)
+            cards = []
         }
     }
 
@@ -33,14 +40,14 @@ class EditCardsViewModel {
         guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
         let card = Card(id: id, prompt: trimmedPrompt, answer: trimmedAnswer)
         cards.insert(card, at: 0)
-        saveCard()
+        saveCards()
         newAnswer = ""
         newPrompt = ""
     }
 
     func removeCards(at offsets: IndexSet) {
         cards.remove(atOffsets: offsets)
-        saveCard()
+        saveCards()
     }
 
 }
